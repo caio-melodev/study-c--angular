@@ -1,4 +1,4 @@
-namespace TarefaAPI.Models;
+namespace TarefaAPI.Models; //TarefaAPI.Models define a estrutura dos dados (isto é uma tarefa, ela tem um id um titulo e um status)
 
 public enum TarefaStatus /* enum garante que a propriedade Stauts só pode ter um dos valores válidos*/
 {
