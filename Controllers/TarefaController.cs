@@ -72,7 +72,7 @@ NoContent() -> Carimbo "SUCESSO, NADA A DEVOLVER 204"*/
         {
             return BadRequest();
         }
-        
+
         //Avisa ao EF que o objeto 'tarefa' está em estado "Modificado", para que o EF saiba que deve gerar um comando UPDATE
         _context.Entry(tarefa).State = EntityState.Modified; /* _context pegue o objeto tarefa */
 
@@ -86,7 +86,7 @@ NoContent() -> Carimbo "SUCESSO, NADA A DEVOLVER 204"*/
         {
             /*tratamento de erro, se a task foi deletada por outra pessoa entre o momento que o cliente a carregou e o momento que ele
             tentou salvar a edição*/
-            if (!_context.Tarefas.Any(e => e.Id == id)) 
+            if (!_context.Tarefas.Any(e => e.Id == id))
             {
                 //se a tarefa não existe mais, retorna 404 Not Found
                 return NotFound();
@@ -98,6 +98,26 @@ NoContent() -> Carimbo "SUCESSO, NADA A DEVOLVER 204"*/
         }
         //se a atualização foi bem sucedida, retorna o status 204 No Content
         // padrão de sucesso para PUT, pq o cliente já tem o objeto atualizado(que ele mesmo enviou)
+        return NoContent();
+    }
+
+    //Endpoint p deletar uma tarefa existente
+    [HttpDelete("{id}")]
+
+    public async Task<IActionResult> DeleteTarefa(int id)
+    {
+        //procura a tarefa no banco pelo Id fornecido
+        var tarefa = await _context.Tarefas.FindAsync(id);
+        //se a tarefa não for encontrada retorna 404
+        if (tarefa == null)
+        {
+            return NotFound();
+        }
+        //avisa ao EF que a entidade deve ser removida.
+        _context.Tarefas.Remove(tarefa);
+        //efetiva a remoção no BD | O savechangesasync executa o sql delete
+        await _context.SaveChangesAsync();
+        //retorna o 204, padrão para o sucesso do DELETE
         return NoContent();
     }
 }
