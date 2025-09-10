@@ -26,4 +26,17 @@ export class TarefaService {
   addTarefa(tarefa: Omit<Tarefa, 'id'>): Observable<Tarefa> { // <--- ERRO 2: CORRIGIDO AQUI (era TarefaService)
     return this.http.post<Tarefa>(this.apiUrl, tarefa);
   }
+
+  //método p/ modificar uma tarefa (PUT)
+  updateTarefa(tarefa: Tarefa): Observable<Tarefa> {
+    const url = `${this.apiUrl}/${tarefa.id}`; //monta a URL /api/tarefa/5
+    return this.http.put<Tarefa>(url, tarefa);
+  }
+
+  //método p/ deletar uma tarefa (DELETE)
+  deleteTarefa(id: number): Observable<any> {
+    //monta a url com o id
+    const url = `${this.apiUrl}/${id}`; //faz a requisição delete para a url motnada
+    return this.http.delete(url);
+  }
 }
