@@ -1,24 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
-</html>
 <h1>Minha Lista de Tarefas</h1>
-<button> </button>
+
+<div>
+  <input #newTarefaTitle type="text" placeholder="Digite o título da nova tarefa...">
+  <button (click)="addTarefa(newTarefaTitle.value)">Adicionar</button>
+</div>
+
 <ul>
-  <li *ngFor="let tarefa of tarefas">
+  <li *ngFor="let tarefa of tarefas"> <!-- a diretiva *ngFor funciona como um laço de repetição p/ o HTML.
+    ela percorre o array tarefas (vem do app.ts) e p cada tarefa na lista ela cria uma cópia <li>-->
     {{ tarefa.titulo }}
   </li>
 </ul>
 
-<p *ngIf="tarefas.length === 0">
+<p *ngIf="tarefas.length === 0">  <!-- O paragrafo p Nenhuma tarefa encontrada. só irá aparecer na tela se a lista estiver vazia -->
   Nenhuma tarefa encontrada.
 </p>
-
-<router-outlet></router-outlet>
