@@ -6,15 +6,24 @@
   <button *ngIf="tarefaParaEditar" (click)="cancelarEdicao()">Cancelar</button>
 </div>
 
+<div>
+  <button (click)="filtrar('TODAS')">Todas</button>
+  <button (click)="filtrar('PENDENTES')">Pendentes</button>
+  <button (click)="filtrar('CONCLUIDAS')">Concluídas</button>
+</div>
 <ul>
-  <li *ngFor="let tarefa of tarefas"> <span>{{ tarefa.titulo }}</span> <!-- a diretiva *ngFor funciona como um laço de repetição p/ o HTML.
-    ela percorre o array tarefas (vem do app.ts) e p cada tarefa na lista ela cria uma cópia <li>-->
+  <li *ngFor="let tarefa of tarefasFiltradas">
+    <input type="checkbox" [checked]="tarefa.status === 2" 
+    (change)="toggleStatus(tarefa)">
+
+    <span [class.concluida]="tarefa.status === 2">{{ tarefa.titulo }}</span>
+
     <div>
       <button (click)="iniciarEdicao(tarefa)">✏️</button>
       <button (click)="deletarTarefa(tarefa.id)">🗑️</button>
     </div>
   </li>
 </ul>
-
-<p *ngIf="!tarefas || tarefas.length === 0">  Nenhuma tarefa encontrada. <!-- O paragrafo p Nenhuma tarefa encontrada. só irá aparecer na tela se a lista estiver vazia -->
+<!-- O paragrafo p Nenhuma tarefa encontrada. só irá aparecer na tela se a lista estiver vazia -->
+<p *ngIf="!tarefasFiltradas || tarefasFiltradas.length === 0"> Nenhuma tarefa encontrada.
 </p>

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 import { TarefaService } from './services/tarefa';
 import { Tarefa } from './models/tarefa';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, StatusChangeEvent } from '@angular/forms';
+import { RouterOutlet } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
 
-  tarefas: Tarefa[] = []; // Propriedade para guardar a lista de tarefas que virá da API.
+  tarefas: Tarefa[] = []; // guarda a lista completa que vem da API
+  tarefasFiltradas: Tarefa[] = []; //guarda a lista que será mostrada na tela
+  filtroAtual: string = 'TODAS'; //controla qual filtro ficará ativo
   tarefaParaEditar: Tarefa | null = null; //P guardar a tarefa que está sendo editada
   tituloTarefa: string = ''; //P ligar com o <input>
 
@@ -27,7 +30,23 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.tarefaService.getTarefas().subscribe((result: Tarefa[]) => {
       this.tarefas = result;
+      this.filtrar(this.filtroAtual); // chama o filtro
     });
+  }
+
+  filtrar(status: string): void {
+    this.filtroAtual = status; // <-- CORREÇÃO AQUI
+
+    if (status === 'PENDENTES') {
+      //filtra a lista principal para mostrar tarefas com status 0
+      this.tarefasFiltradas = this.tarefas.filter(tarefa => tarefa.status === 0);
+    } else if (status === 'CONCLUIDAS') {
+      //filtra a lista princ para mostrar tarefas com status 2
+      this.tarefasFiltradas = this.tarefas.filter(tarefa => tarefa.status === 2);
+    } else {
+      // se o filtro for 'TODAS a lista filtrada é uma cópia da lista completa
+      this.tarefasFiltradas = [...this.tarefas]; // '...' para criar uma cópia
+    }
   }
 
   // Prepara o formulário para o modo de edição
@@ -63,6 +82,7 @@ export class AppComponent implements OnInit {
             this.tarefas[index] = tarefaAtualizada;
           }
           this.cancelarEdicao(); // limpa o formulário após salvar
+          this.filtrar(this.filtroAtual); // chama o filtro
         });
     }
     //se não, estamos criando uma nova tarefa
@@ -79,9 +99,11 @@ export class AppComponent implements OnInit {
 
           // limpa o formulário p nova tarefa
           this.cancelarEdicao();
+          this.filtrar(this.filtroAtual); // chama o filtro
         });
     }
   }
+
   //metodo para deletar uma tarefa
   deletarTarefa(id: number): void {
     //chama o serviço p deletar a tarefa no backend, informando o ID
@@ -90,7 +112,20 @@ export class AppComponent implements OnInit {
         /*após o back confirmar o delete da tarefa | atualiza a lista local p mudança reflertir na tela
         | o .filter() cria uma nova lista contendo apenas os itens q passam no teste | a nova lista conterá
         todas as tarefas cujo ID é diferente do deletado*/
-        this.tarefas = this.tarefas.filter(tarefa => tarefa.id !==id);
+        this.tarefas = this.tarefas.filter(tarefa => tarefa.id !== id);
+        this.filtrar(this.filtroAtual); // chama o filtro
       });
   }
-}
+
+  //método para alternar o status de uma tarefa (concluída/pendente)
+  toggleStatus(tarefa: Tarefa): void {
+    //muda o status: se for 0 (Pendente) vira 2 (concluída), e vice-versa
+    tarefa.status = tarefa.status === 0 ? 2 : 0;
+
+    //usa o serviço de update já criado, para salvar a mudança no back
+    this.tarefaService.updateTarefa(tarefa).subscribe(() => {
+      //recalcula a lista filtrada
+      this.filtrar(this.filtroAtual);
+    });
+  }
+} // a classe termina aqui
