@@ -11,7 +11,7 @@ import { trigger, transition, style, animate, query, stagger } from '@angular/an
   standalone: true,
   imports: [CommonModule, RouterOutlet, FormsModule], // CommonModule é necessário para usar *ngFor e *ngIf
   templateUrl: './app.html',
-  styleUrl: './app.css',
+  styleUrls: ['./app.css'], 
 
   animations: [
     trigger('listAnimation', [

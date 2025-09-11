@@ -16,15 +16,19 @@
 </div>
 <ul [@listAnimation]="tarefasFiltradas.length">
   <li *ngFor="let tarefa of tarefasFiltradas">
-    <input type="checkbox" [checked]="tarefa.status === 2" 
-    (change)="toggleStatus(tarefa)">
+    <input type="checkbox" [checked]="tarefa.status === 2" (change)="toggleStatus(tarefa)">
 
     <span [class.concluida]="tarefa.status === 2">{{ tarefa.titulo }}</span>
 
-    <div>
-      <button (click)="iniciarEdicao(tarefa)">✏️</button>
-      <button (click)="deletarTarefa(tarefa.id)">🗑️</button>
+    <div class="actions">
+      <button (click)="iniciarEdicao(tarefa)">
+        <img src="edit-icon.svg" alt="Editar Tarefa">
+      </button>
+      <button (click)="deletarTarefa(tarefa.id)">
+        <img src="delete-icon.svg" alt="Deletar Tarefa">
+      </button>
     </div>
+
   </li>
 </ul>
 <!-- O paragrafo p Nenhuma tarefa encontrada. só irá aparecer na tela se a lista estiver vazia -->
