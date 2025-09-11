@@ -12,6 +12,22 @@ import { RouterOutlet } from '@angular/router';
   imports: [CommonModule, RouterOutlet, FormsModule], // CommonModule é necessário para usar *ngFor e *ngIf
   templateUrl: './app.html',
   styleUrl: './app.css'
+  animatinons: [
+        trigger('listAnimation', [
+      transition('* => *', [ // Roda a animação toda vez que a lista muda
+        query(':enter', [ // Ação para itens que estão ENTRANDO na lista
+          style({ opacity: 0, transform: 'translateY(-15px)' }),
+          stagger('50ms', [
+            animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+          ])
+        ], { optional: true }),
+        query(':leave', [ // Ação para itens que estão SAINDO da lista
+          animate('200ms ease-in', style({ opacity: 0, transform: 'translateY(15px)' }))
+        ], { optional: true })
+      ])
+    ])
+  ]
+})
 })
 export class AppComponent implements OnInit {
 

@@ -1,4 +1,7 @@
-<h1>Minha Lista de Tarefas</h1>
+<h1>
+  <img src="logo.png" alt="FlowNote logo">
+  <span>FlowNote</span>
+</h1>
 
 <div>
   <input type="text" [(ngModel)]="tituloTarefa" placeholder="Digite o título...">
@@ -11,7 +14,7 @@
   <button (click)="filtrar('PENDENTES')">Pendentes</button>
   <button (click)="filtrar('CONCLUIDAS')">Concluídas</button>
 </div>
-<ul>
+<ul [@listAnimation]="tarefasFiltradas.length">
   <li *ngFor="let tarefa of tarefasFiltradas">
     <input type="checkbox" [checked]="tarefa.status === 2" 
     (change)="toggleStatus(tarefa)">

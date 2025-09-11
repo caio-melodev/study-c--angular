@@ -2,3 +2,156 @@
   text-decoration: line-through;
   color: #888; /* deixa o texto mais claro */
 }
+
+/* estilos para o corpo da página */
+:host {
+  display: block; /*componente se comporta como um bloco */
+  background-color: #fff;
+  padding: 30px 50px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto; /* centralizar o bloco na página */
+}
+
+h1 {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  font-family: 'Montserrat', sans-serif; 
+  color: #333;
+  margin-bottom: 25px;
+  margin-top: 0%;
+
+}
+
+h1 img{
+  height: 90px;
+  margin-right: 7px;
+}
+
+h1 span{
+  font-weight: 300;
+  font-size: 28px;
+}
+
+
+/* Estilos para os DIVs que contêm o formulário e os botões de filtro */
+div {
+  display: flex;
+  gap: 10px; /* Espaço entre os itens flex */
+  margin-bottom: 20px;
+  flex-wrap: wrap; /* Permite que os itens quebrem linha se não houver espaço */
+}
+
+/* Estilos para o campo de input */
+input[type="text"] {
+  flex-grow: 1; /* Faz o input ocupar o máximo de espaço possível */
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Estilos para todos os botões */
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  white-space: nowrap; /* Evita que o texto/ícone quebre em duas linhas */
+  font-family: 'Montserrat', sans-serif; 
+}
+
+button:nth-of-type(1) { /* botão do formulário (Adicionar/Salvar) */
+  background-color: #2383e2;
+  color: white;
+}
+
+button:nth-of-type(1):hover {
+  background-color: #0056b3;
+}
+
+button:nth-of-type(2) { /* Botão Cancelar */
+  background-color: #6c757d;
+  color: white;
+}
+
+button:nth-of-type(2):hover {
+  background-color: #5a6268;
+}
+
+/* Botões de filtro */
+div:nth-of-type(2) button { /* Segundo div, que tem os botões de filtro */
+    background-color: #99ccde; 
+    color: #333;
+    margin-left: 10px;
+}
+div:nth-of-type(2) button:hover {
+    background-color: #99ccde;
+}
+
+/* estilos para a lista de tarefas */
+ul {
+  list-style: none; /* Remove as bolinhas/números padrão da lista */
+  margin: 0;
+}
+
+li {
+  display: flex; /* Transforma cada item da lista em um container flex */
+  justify-content: space-between; /* Empurra o conteúdo para as pontas */
+  align-items: center; /* Alinha verticalmente */
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+li:last-child {
+  border-bottom: none; /* Remove a linha do último item */
+}
+
+li input[type="checkbox"] {
+  margin-right: 10px; /* Espaço entre o checkbox e o título */
+  transform: scale(1.2); /* Aumenta um pouco o checkbox */
+}
+
+li span { /*texto das tarefas */
+  flex-grow: 1; /* faz o título ocupar o máximo de espaço restante */
+  font-size: 18px;
+  color: #333;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Estilo para tarefas concluídas */
+.concluida {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* Container dos botões de ação (editar, deletar) */
+li div {
+  display: flex;
+  gap: 5px; /* Espaço entre os botões de editar e deletar */
+  margin-bottom: 0; /* Zera margem de div genérico */
+}
+
+li div button {
+    padding: 8px 10px;
+    font-size: 14px;
+    background-color: transparent; /* Botões de ícone sem fundo */
+    color: #6c757d;
+}
+
+li div button:hover {
+    color: #007bff;
+}
+
+
+/* Estilo para "Nenhuma tarefa encontrada" */
+p {
+  text-align: center;
+  color: #666;
+  margin-top: 30px;
+  font-family: 'Montserrat', sans-serif;
+}
