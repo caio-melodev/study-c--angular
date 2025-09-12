@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Add services to the container.
+
 builder.Services.AddDbContext<AppDbContext>(options => //registra o appdbcontext
 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))); /*configura o serviço para usar 
 o motor do postgre | va no appsetings.json, procure a seção connectionstrings e traga a receita DefaultConnection*/
@@ -33,7 +33,6 @@ using (var scope = app.Services.CreateScope())
 }
 //fim do bloco
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -42,7 +41,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Ativa a política de CORS que definimos acima
+// ativa a política de CORS que definimos
 app.UseCors("AllowAngularApp");
 
 app.MapControllers();

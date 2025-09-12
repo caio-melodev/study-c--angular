@@ -11,7 +11,7 @@ import { trigger, transition, style, animate, query, stagger } from '@angular/an
   standalone: true,
   imports: [CommonModule, RouterOutlet, FormsModule], // CommonModule é necessário para usar *ngFor e *ngIf
   templateUrl: './app.html',
-  styleUrls: ['./app.css'], 
+  styleUrls: ['./app.css'],
 
   animations: [
     trigger('listAnimation', [
@@ -47,9 +47,10 @@ export class AppComponent implements OnInit {
   tarefaParaEditar: Tarefa | null = null; //P guardar a tarefa que está sendo editada
   tituloTarefa: string = ''; //P ligar com o <input>
 
-  /* Para criar um AppComponent, o Angular deve injetar uma instância do TarefaService
+  /* para criar um AppComponent, o Angular deve injetar uma instância do TarefaService
       para que o componente tenha acesso ao "carteiro" que conversa com o backend. */
-  constructor(private tarefaService: TarefaService) {}
+      
+  constructor(private tarefaService: TarefaService) { }
 
   // ngOnInit é um método que roda uma vez, logo após o componente ser criado.
   // É o lugar ideal para buscar os dados iniciais da página.

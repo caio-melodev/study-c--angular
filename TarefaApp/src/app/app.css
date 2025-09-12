@@ -65,43 +65,43 @@ button {
   font-family: 'Montserrat', sans-serif; 
 }
 
-button:nth-of-type(1) { /* botão do formulário (Adicionar/Salvar) */
+.btn-principal { /* botão do formulário (Adicionar/Salvar) */
   background-color: #2383e2;
   color: white;
 }
 
-button:nth-of-type(1):hover {
+.btn-principal:hover {
   background-color: #0056b3;
 }
 
-button:nth-of-type(2) { /*Cancelar */
+.btn-cancelar { 
   background-color: #6c757d;
   color: white;
 }
 
-button:nth-of-type(2):hover {
+.btn-cancelar:hover {
   background-color: #5a6268;
 }
 
-/* Botões de filtro */
-div:nth-of-type(2) button { /* Segundo div, que tem os botões de filtro */
+/* botões de filtro */
+.btn-filtro { 
     background-color: #99ccde; 
     color: #333;
     margin-left: 10px;
 }
-div:nth-of-type(2) button:hover {
+.btn-filtro:hover {
     background-color: #99ccde;
 }
 
 /* estilos para a lista de tarefas */
 ul {
-  list-style: none; /* Remove as bolinhas/números padrão da lista */
+  list-style: none;
   margin: 0;
 }
 
 li {
   display: flex; 
-  justify-content: space-between; /* Empurra o conteúdo para as pontas */
+  justify-content: space-between; 
   align-items: center; /* alinha verticalmente */
   padding: 12px 0;
   border-bottom: 1px solid #eee;

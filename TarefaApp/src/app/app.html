@@ -5,14 +5,14 @@
 
 <div>
   <input type="text" [(ngModel)]="tituloTarefa" placeholder="Digite o título...">
-  <button (click)="salvar()">{{ tarefaParaEditar ? 'Salvar' : 'Adicionar' }}</button>
-  <button *ngIf="tarefaParaEditar" (click)="cancelarEdicao()">Cancelar</button>
+  <button class="btn-principal" (click)="salvar()">{{ tarefaParaEditar ? 'Salvar' : 'Adicionar' }}</button>
+  <button class="btn-cancelar" *ngIf="tarefaParaEditar" (click)="cancelarEdicao()">Cancelar</button>
 </div>
 
 <div>
-  <button (click)="filtrar('TODAS')">Todas</button>
-  <button (click)="filtrar('PENDENTES')">Pendentes</button>
-  <button (click)="filtrar('CONCLUIDAS')">Concluídas</button>
+  <button class="btn-filtro" (click)="filtrar('TODAS')">Todas</button>
+  <button class="btn-filtro" (click)="filtrar('PENDENTES')">Pendentes</button>
+  <button class="btn-filtro" (click)="filtrar('CONCLUIDAS')">Concluídas</button>
 </div>
 <ul [@listAnimation]="tarefasFiltradas.length">
   <li *ngFor="let tarefa of tarefasFiltradas">
@@ -31,6 +31,6 @@
 
   </li>
 </ul>
-<!-- O paragrafo p Nenhuma tarefa encontrada. só irá aparecer na tela se a lista estiver vazia -->
+<!-- o paragrafo p Nenhuma tarefa encontrada. só irá aparecer na tela se a lista estiver vazia -->
 <p *ngIf="!tarefasFiltradas || tarefasFiltradas.length === 0"> Nenhuma tarefa encontrada.
 </p>
