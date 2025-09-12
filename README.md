@@ -2,7 +2,7 @@
 
 <br>
 
-![Screenshot da Aplicação](URL_DA_SUA_IMAGEM_AQUI)
+![Screenshot da Aplicação](https://raw.githubusercontent.com/caio-melodev/Desafio-Full-Stack-Developer-Keevo/refs/heads/main/docs/Todas.png)
 
 <br>
 
@@ -121,9 +121,11 @@ ng serve
 
 ## 📖 Documentação da API
 
-Após rodar o backend, a documentação estará disponível em:
-👉 `http://localhost:5000/swagger`
+A API possui uma documentação interativa gerada com Swagger (OpenAPI), permitindo que todos os endpoints sejam testados diretamente pelo navegador.
 
+![Swagger geral](https://raw.githubusercontent.com/caio-melodev/Desafio-Full-Stack-Developer-Keevo/refs/heads/main/docs/Swagger%20geral.png)
+
+![Swagger GET](https://raw.githubusercontent.com/caio-melodev/Desafio-Full-Stack-Developer-Keevo/refs/heads/main/docs/Swagger%20GET.png)
 ---
 
 ## 🐳 Executando com Docker (em desenvolvimento)
