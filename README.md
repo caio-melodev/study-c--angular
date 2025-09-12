@@ -85,8 +85,8 @@ Certifique-se de ter instalado:
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio/TarefaAPI
+git clone https://github.com/caio-melodev/Desafio-Full-Stack-Developer-Keevo/tree/main
+cd Desafio-Full-Stack-Developer-Keevo/TarefaAPI
 
 # Crie um banco de dados PostgreSQL vazio chamado "tarefasdb"
 
