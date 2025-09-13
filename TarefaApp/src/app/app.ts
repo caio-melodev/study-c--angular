@@ -9,7 +9,7 @@ import { trigger, transition, style, animate, query, stagger } from '@angular/an
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FormsModule], // CommonModule é necessário para usar *ngFor e *ngIf
+  imports: [CommonModule, FormsModule], // CommonModule é necessário para usar *ngFor e *ngIf
   templateUrl: './app.html',
   styleUrls: ['./app.css'],
 

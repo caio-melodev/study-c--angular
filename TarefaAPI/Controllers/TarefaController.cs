@@ -73,7 +73,7 @@ NoContent() -> Carimbo "SUCESSO, NADA A DEVOLVER 204"*/
             return BadRequest();
         }
 
-        //Avisa ao EF que o objeto 'tarefa' está em estado "Modificado", para que o EF saiba que deve gerar um comando UPDATE
+        //avisa ao EF que o objeto 'tarefa' está em estado "Modificado", para que o EF saiba que deve gerar um comando UPDATE
         _context.Entry(tarefa).State = EntityState.Modified; /* _context pegue o objeto tarefa */
 
         try

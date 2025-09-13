@@ -36,8 +36,7 @@ O sistema conta com um **backend RESTful** em **.NET 8 (C#)** e um **frontend di
 ## ⭐ Pontos Extras
 
 * [x] **Swagger/OpenAPI** para documentação da API
-* [ ] **Docker** (em desenvolvimento)
-* [ ] Funcionalidades extras (em planejamento)
+* [x] **Docker** (Implementado)
 
 ---
 
@@ -91,7 +90,7 @@ cd Desafio-Full-Stack-Developer-Keevo/TarefaAPI
 # Crie um banco de dados PostgreSQL vazio chamado "tarefasdb"
 
 # Configure o User Secrets com sua string de conexão
-dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Host=localhost;Port=5432;Database=tarefasdb;Username=postgres;Password=SUA_SENHA_AQUI"
+dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Host=localhost;Port=5432;Database=tarefasdb;Username=postgres;Password=FlowNoteDev@2025!"
 
 # Instale ferramentas locais do EF Core
 dotnet tool restore

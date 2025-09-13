@@ -1,0 +1,29 @@
+services:
+  # serviço do BD
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: tarefasdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: FlowNoteDev@2025!
+    ports:
+      - "5432:5432"
+
+  # (API)
+  api:
+    build: ./TarefaAPI
+    ports:
+      - "5155:8080"
+    depends_on:
+      - db
+    environment:
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=tarefasdb;Username=postgres;Password=FlowNoteDev@2025!"
+
+  # serviço do angular
+  client:
+    build: ./TarefaApp
+    ports:
+      - "4200:80"
+    depends_on:
+      - api

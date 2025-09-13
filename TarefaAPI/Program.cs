@@ -33,11 +33,9 @@ using (var scope = app.Services.CreateScope())
 }
 //fim do bloco
 
-if (app.Environment.IsDevelopment())
-{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
 
 app.UseHttpsRedirection();
 
