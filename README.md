@@ -66,8 +66,42 @@ O sistema conta com um **backend RESTful** em **.NET 8 (C#)** e um **frontend di
 * **User Secrets** (Configuração de segredos em ambiente de desenvolvimento)
 
 ---
+⚙️ Como Executar o Projeto
 
-## ⚙️ Como Executar o Projeto
+📌 Pré-requisitos
+Certifique-se de ter o Docker Desktop instalado e rodando.
+**(Para execução individual sem Docker Compose, os pré-requisitos seriam .NET 9 SDK, Node.js (LTS), Angular CLI e PostgreSQL instalados localmente.)**
+
+🐳 **Executando com Docker Compose (Método Recomendado)**
+
+Este método é o mais rápido e fácil para subir toda a aplicação (frontend, backend e banco de dados) com apenas um comando.
+
+1.  **Clone o repositório:**
+    ```bash
+    git clone [https://github.com/caio-melodev/Desafio-Full-Stack-Developer-Keevo.git](https://github.com/caio-melodev/Desafio-Full-Stack-Developer-Keevo.git)
+    cd Desafio-Full-Stack-Developer-Keevo
+    ```
+2.  **Suba os serviços com Docker Compose:**
+    ```bash
+    docker-compose up --build
+    ```
+    * Este comando irá construir as imagens do frontend e backend, criar o container do PostgreSQL e iniciar todos os serviços.
+
+3.  **Acesse a Aplicação:**
+    * Frontend (FlowNote): `http://localhost:4200`
+    * Documentação da API (Swagger): `http://localhost:5155/swagger/index.html`
+
+    **(Aguarde alguns segundos para todos os serviços estarem completamente iniciados antes de acessar as URLs.)**
+
+**Credenciais do Banco de Dados (para testes locais):**
+* **Host:** `localhost` (ou o nome do serviço 'db' se acessando de outro container)
+* **Port:** `5432`
+* **Database:** `tarefasdb`
+* **Username:** `postgres`
+* **Password:** `FlowNoteDev@2025!` (Esta senha é para ambiente de desenvolvimento/teste e está definida no `docker-compose.yml`. Em produção, seriam utilizados métodos de gerenciamento de segredos mais robustos.)
+
+***
+## ⚙️ Executar o Projeto (sem o Docker)
 
 ### 📌 Pré-requisitos
 
@@ -126,14 +160,6 @@ A API possui uma documentação interativa gerada com Swagger (OpenAPI), permiti
 
 ![Swagger GET](https://raw.githubusercontent.com/caio-melodev/Desafio-Full-Stack-Developer-Keevo/refs/heads/main/docs/Swagger%20GET.png)
 ---
-
-## 🐳 Executando com Docker (em desenvolvimento)
-
-Em breve será possível rodar a aplicação inteira com:
-
-```bash
-docker-compose up --build
-```
 
 ---
 
