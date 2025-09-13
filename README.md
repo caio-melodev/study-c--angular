@@ -168,7 +168,7 @@ A API possui uma documentação interativa gerada com Swagger (OpenAPI), permiti
 * **.NET + EF Core** para garantir robustez e fácil integração com PostgreSQL.
 * **Angular + RxJS** no frontend para reatividade e performance.
 * **Swagger** para facilitar o consumo e teste da API.
-* **Docker (em progresso)** para padronizar ambiente e facilitar deploy.
+* **Docker (implementado)** para padronizar ambiente e facilitar deploy.
 
 ---
 
