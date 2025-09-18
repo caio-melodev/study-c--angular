@@ -1,13 +1,20 @@
-using Microsoft.AspNetCore.Mvc; //framework microsoft destinado a construção de aplicações web
-using TarefaAPI.Data;
-using TarefaAPI.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
+//arquivo que contém os endpoints
+
+using Microsoft.AspNetCore.Mvc; //framework do .net destinado a construção de aplicações web
+using TarefaAPI.Data; /*faz referência ao namespace TarefaAPI.Data do arquivo AppDbContext.cs - Esse arquivo contém a classe AppDbContext,
+que herda características do DbContext(classe do EF). Essa classe (AppDBContext) faz a ponte entre o C# e o BD*/
+using TarefaAPI.Models;  /*Faz referência ao namespace TarefaAPI.Models do arquivo Tarefa.cs - Esse arquivo contém o enum que limita a propriedade
+Status a um conjunto especifico Pendente, EmAndamento e Concluiída(apenas esses 3 valores são válidos). Esse arquivo também contém a classe Tarefa,
+que define que toda tarefa deve ter um Id, Titulo e Status, esses atributos podem ser lidos (get) e modificados (set)*/
+using Microsoft.EntityFrameworkCore; //EFCore é a ferammenta que faz a comunicação com o BD e mapeia os objetos/tabelas
+using System.Linq; //Linq é a funcionalidade do C# que permite a escrita de consultas para BD's usando a sintaxe da linguagem
 
 namespace TarefaAPI.Controllers;
 
-[ApiController] /*aqui o .net automaticamente ativa validação automática, inferência de fonte e formatação de resposta
-basicamente uma etiqueta que trata a classe com todas as regras de uma API*/
+[ApiController] /*Diz ao .NET que essa classe é uma API REST 
+-Ativa a validação de dados de entrada
+-Mapeamento automático do JSON do 
+-Respostas padronizadas*/
 [Route("api/[controller]")]  //url base = api/tarefa.
 
 public class TarefaController : ControllerBase // Tarefa controller herda de ControllerBase
