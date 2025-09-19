@@ -1,0 +1,39 @@
+1. Cliente–Servidor (Client–Server)
+
+O cliente (ex: app Angular, mobile) só se preocupa em pedir dados.
+
+O servidor (ex: sua API em .NET) só se preocupa em fornecer esses dados.
+👉 Isso separa responsabilidades e facilita manutenção.
+
+2. Stateless (Sem estado)
+
+Cada requisição deve ser independente.
+
+O servidor não lembra do que aconteceu antes.
+
+Toda request deve ter as informações necessárias (ex: token de autenticação, ID do recurso etc).
+👉 Exemplo: se você quer atualizar uma tarefa, a requisição precisa trazer o id e os dados novos, não dá pra “depender da última request”.
+
+3. Cacheable (Cacheável)
+
+As respostas devem dizer se podem ou não ser armazenadas em cache.
+
+Isso melhora performance (ex: buscar lista de tarefas que não muda o tempo todo).
+
+4. Interface Uniforme (Uniform Interface)
+
+Essa é a regra central do REST. Significa padronizar como os recursos são acessados:
+
+Identificação dos recursos → Cada recurso tem uma URL única (/api/tarefa/1).
+
+Manipulação via representações → Você trabalha com representações (geralmente JSON), não com o banco direto.
+
+Mensagens autoexplicativas → A requisição/resposta deve ser clara por si só (ex: headers, status code).
+
+HATEOAS (opcional) → O cliente pode descobrir o que dá pra fazer a partir das respostas (links para próximas ações).
+
+5. Camadas (Layered System)
+
+O cliente não precisa saber se está falando com o servidor real ou com um intermediário (ex: proxy, load balancer, cache).
+
+Isso traz escalabilidade e segurança.

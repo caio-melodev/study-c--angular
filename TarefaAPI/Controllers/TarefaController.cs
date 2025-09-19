@@ -1,6 +1,5 @@
 //arquivo que contém os endpoints
-
-using Microsoft.AspNetCore.Mvc; //framework do .net destinado a construção de aplicações web
+using Microsoft.AspNetCore.Mvc; //framework do .net destinado a construção de aplicações web ControllerBase/IActionResult
 using TarefaAPI.Data; /*faz referência ao namespace TarefaAPI.Data do arquivo AppDbContext.cs - Esse arquivo contém a classe AppDbContext,
 que herda características do DbContext(classe do EF). Essa classe (AppDBContext) faz a ponte entre o C# e o BD*/
 using TarefaAPI.Models;  /*Faz referência ao namespace TarefaAPI.Models do arquivo Tarefa.cs - Esse arquivo contém o enum que limita a propriedade
@@ -11,17 +10,20 @@ using System.Linq; //Linq é a funcionalidade do C# que permite a escrita de con
 
 namespace TarefaAPI.Controllers;
 
-[ApiController] /*Diz ao .NET que essa classe é uma API REST 
+[ApiController] /*UM atributo que diz ao .NET que essa classe é uma API REST (uma api que segre as regras do REST para comunicação entre cliente e servidor)
 -Ativa a validação de dados de entrada
--Mapeamento automático do JSON do 
--Respostas padronizadas*/
-[Route("api/[controller]")]  //url base = api/tarefa.
+-Respostas padronizadas ex: "HTTP 400 Bad Request"*/
+[Route("api/[controller]")]  /*url base = api/tarefa. O sistema de roteamento do ASP.NET n é case sensitive, com isso o parâmetro [controller] referencia
+a classe TarefaController, retirando o controller e deixando apenas o nome inicial(tarefa)*/
+//URLS devem ser case-insensitive
 
-public class TarefaController : ControllerBase // Tarefa controller herda de ControllerBase
+//public classes podem ser visiveis fora do assembly
+public class TarefaController : ControllerBase //ControllerBase é uma classe abstrata., -Fornece IActionResult()
+//Tarefa controller herda de ControllerBase
 {
-    private readonly AppDbContext _context; /*private - apenas o código dentro da classe TarefaController
-    pode ver ou alterar o _context | readonly - o valor de _context só pode ser definido uma vez | por convenção
-    uma variável de campo private começa com _ */
+    private readonly AppDbContext _context; /*Só pode ser acessado de dentro da classe TarefaController 
+    | readonly - o valor de _context só pode ser definido uma vez |
+    AppDbContext - chama a classe que representa a sessão com o BD*/
     public TarefaController(AppDbContext context) /*Para criar um TarefaController, tem que ser passado uma instância do AppDbContext
     para que o Controller tenha acesso ao BD */
     {
@@ -47,7 +49,6 @@ NoContent() -> Carimbo "SUCESSO, NADA A DEVOLVER 204"*/
         executa a consulta no bd usando o EF */
         return Ok(tarefas); /* esse método Ok() cria um objeto de resultado OkObjectResult, que representa o codigo de status 200 OK*/
     }
-
 
     //Endpoint para cadastrar uma nova tarefa
     [HttpPost] //Qnd uma requisição HTTP POST chegar na URL base(/api/tarefa) é este método q vai executar
