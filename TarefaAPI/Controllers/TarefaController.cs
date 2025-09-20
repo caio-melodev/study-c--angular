@@ -16,33 +16,30 @@ namespace TarefaAPI.Controllers;
 [Route("api/[controller]")]  /*url base = api/tarefa. O sistema de roteamento do ASP.NET n é case sensitive, com isso o parâmetro [controller] referencia
 a classe TarefaController, retirando o controller e deixando apenas o nome inicial(tarefa)*/
 //URLS devem ser case-insensitive
-
 //public classes podem ser visiveis fora do assembly
 public class TarefaController : ControllerBase //ControllerBase é uma classe abstrata., -Fornece IActionResult()
 //Tarefa controller herda de ControllerBase
 {
-    private readonly AppDbContext _context; /*Só pode ser acessado de dentro da classe TarefaController 
-    | readonly - o valor de _context só pode ser definido uma vez |
-    AppDbContext - chama a classe que representa a sessão com o BD*/
-    public TarefaController(AppDbContext context) /*Para criar um TarefaController, tem que ser passado uma instância do AppDbContext
-    para que o Controller tenha acesso ao BD */
+    private readonly AppDbContext _context; /*Private garente que o campo _context só pode ser acessado de dentro da classe TarefaController
+    | readonly - o valor de _context só pode ser definido uma vez, o banco não pode ser trocado no meio do caminho, e o controller sempre trabalha com a mesma instancia
+    | AppDbContext - chama a classe que mantém a sessão com o BD | _context é a váriavel que
+    guarda a instância atual de AppDbContext usada pelo controller para conversar com o banco */
+    public TarefaController(AppDbContext context) /*Esse é o Construtor da classe. Ele é chamado quando o ASP.NET cria um objeto TarefaController
+    Como o controller precisa acessar o banco, o ASP.NET injeta um AppDbContext pronto no parâmetro context. Esse context é guardado dentro de um _context,
+    que será usado nos outros métodos do controller.*/
     {
-        _context = context; /* Estamos atribuindo o appdbcontext que foi injetado como parametro no context
-        para o campo privado da classe _context*/
+        _context = context; /* Aqui guardamos o parâmetro 'context', que só existia dentro do construtor e o armazenamos como _context
+        que pode ser usado em toda a classe*/
     }
 
     /*Ok() -> Carimbo "SUCESSO 200"
-
-CreatedAtAction() -> Carimbo "CRIADO COM SUCESSO 201"
-
-BadRequest() -> Carimbo "PEDIDO INVÁLIDO 400"
-
-NotFound() -> Carimbo "NÃO ENCONTRADO 404"
-
-NoContent() -> Carimbo "SUCESSO, NADA A DEVOLVER 204"*/
+    CreatedAtAction() -> Carimbo "CRIADO COM SUCESSO 201"
+    BadRequest() -> Carimbo "PEDIDO INVÁLIDO 400"
+    NotFound() -> Carimbo "NÃO ENCONTRADO 404"
+    NoContent() -> Carimbo "SUCESSO, NADA A DEVOLVER 204"*/
 
     //Endpoint p/ listar todas as Tarefas
-    [HttpGet] //atributo que avisa que o GetTarefas() está preparado p receber requisições HTTPGET
+    [HttpGet] //Atributo que avisa ao ASP.NET que o método GetTarefas() deve ser chamado ao receber uma requisição GET
     public IActionResult GetTarefas() // visibilidade publica | sempre vai entregar o retnorno, ok, not found,etc. | GetTarefas nome da função
     {
         var tarefas = _context.Tarefas.ToList(); /* . tolist traz tudo dentro de tarefas (dbset<tarefa>) organizado numa lista, ele é o comando q 
@@ -50,9 +47,8 @@ NoContent() -> Carimbo "SUCESSO, NADA A DEVOLVER 204"*/
         return Ok(tarefas); /* esse método Ok() cria um objeto de resultado OkObjectResult, que representa o codigo de status 200 OK*/
     }
 
-    //Endpoint para cadastrar uma nova tarefa
-    [HttpPost] //Qnd uma requisição HTTP POST chegar na URL base(/api/tarefa) é este método q vai executar
-
+    //Endpoint p/ cadastrar uma nova tarefa
+    [HttpPost] //Atributo que avisa ao ASP.NET que o método CreateTarefa() deve ser chamado ao receber uma requisição POST
     public async Task<IActionResult> CreateTarefa(Tarefa tarefa) /*async Task, permite que o método ao encontrar uma tarefa demorada possa 
     "pausar" a si mesmo, liberar a thread p atender outras requisições e voltar ao trabalho só qnd a task terminar | task é o contêiner q gerencia
     essa operação assincrona. | Tarefa tarefa, parâmetro que  o método recebe. Tarefa define o tp de informação que o método CreateTarefa espera receber
