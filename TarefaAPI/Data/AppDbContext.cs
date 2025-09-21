@@ -1,3 +1,8 @@
+//Coração da conexão com o BD
+//AppDbContext é a ponte entre o C# e o banco
+//ele exponibiliza as tabelas DbSet como objetos para o C#
+
+
 using Microsoft.EntityFrameworkCore;
 using TarefaAPI.Models; //TarefaAPI.Models define a estrutura dos dados (isto é uma tarefa, ela tem um id um titulo e um status)
 

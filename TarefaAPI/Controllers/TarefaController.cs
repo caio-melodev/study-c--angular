@@ -31,18 +31,20 @@ public class TarefaController : ControllerBase //ControllerBase é uma classe ab
         _context = context; /* Aqui guardamos o parâmetro 'context', que só existia dentro do construtor e o armazenamos como _context
         que pode ser usado em toda a classe*/
     }
-
-    /*Ok() -> Carimbo "SUCESSO 200"
+    /* Códigos IActionResult Ok() -> Carimbo "SUCESSO 200"
     CreatedAtAction() -> Carimbo "CRIADO COM SUCESSO 201"
     BadRequest() -> Carimbo "PEDIDO INVÁLIDO 400"
     NotFound() -> Carimbo "NÃO ENCONTRADO 404"
     NoContent() -> Carimbo "SUCESSO, NADA A DEVOLVER 204"*/
-
     //Endpoint p/ listar todas as Tarefas
     [HttpGet] //Atributo que avisa ao ASP.NET que o método GetTarefas() deve ser chamado ao receber uma requisição GET
-    public IActionResult GetTarefas() // visibilidade publica | sempre vai entregar o retnorno, ok, not found,etc. | GetTarefas nome da função
+    public IActionResult GetTarefas() /* Método público GetTarefas que retorna um IActionResult| IActionResult é uma interface usada pelo ASP.Net p padronizar
+    respostas HTTP */
+    //Ok() NotFound() é herdado de ControllerBase
     {
-        var tarefas = _context.Tarefas.ToList(); /* . tolist traz tudo dentro de tarefas (dbset<tarefa>) organizado numa lista, ele é o comando q 
+        var tarefas = _context.Tarefas.ToList(); /* . _context representa a sessão com o BD, Tarefas é a tabela de tarefas dentro do banco,
+        o .ToList() executa a consulta no banco e transforma o resultado numa lista de objetos C#
+        list traz tudo dentro de tarefas (dbset<tarefa>) organizado numa lista, ele é o comando q 
         executa a consulta no bd usando o EF */
         return Ok(tarefas); /* esse método Ok() cria um objeto de resultado OkObjectResult, que representa o codigo de status 200 OK*/
     }
@@ -60,13 +62,19 @@ public class TarefaController : ControllerBase //ControllerBase é uma classe ab
         anota a tarefa na memória*/
         await _context.SaveChangesAsync(); /*await diz ao nosso método pause a execução aq e espere o BD responder q o insert foi concluido com sucesso
         adicione a nova tarefa e execute-a no bd (gera o comando insert into "tarefas" e envia para o psotgres), resumidamente, envia para o bd e
-        espera a confirmação, o salvamento acontece aqui. o await termina e código continua na proxima linha*/
-        return CreatedAtAction(nameof(GetTarefas), new { id = tarefa.Id }, tarefa); /*após o salvamento da tarefa, o méotdo envia uma resposta de sucesso
+        espera a confirmação, o salvamento acontece aqui. o await termina e código continua na proxima linha SaveChangesAsync pega todas as alterações
+        rastreadas e gera o SQL corerspondente*/
+        return CreatedAtAction(nameof(GetTarefas), new { id = tarefa.Id }, tarefa); /* nameof usa a ação GetTarefas como referência de rota, o new 
+        é um objeto anônimo que representa os parâmetros da rota (/api/tarefa/{id}), se a nova tarefa tem id 5 será /api/tarefa/5 tarefa devolve o objeto completo
+        que foi salvo
+
+        após o salvamento da tarefa, o méotdo envia uma resposta de sucesso
         201 created de volta p o client*/
     }
 
     //Endpoint para editar uma tarefa existente
-    [HttpPut("{id}")] //cria um parâmetro na rota do HttpPut, significa que a url p este método é /api/tarefa/algum_id 
+    [HttpPut("{id}")] //Diz que esse método responde a requisições PUT, o {id} significa que a  URL vai precisar passar um identificador
+    //  significa que a url p este método é /api/tarefa/algum_id 
     public async Task<IActionResult> UpdateTarefa(int id, Tarefa tarefa) /*.net pega o id que veio na url e o coloca na váriavel id
     o .net pega o JSON da requisição e o transforma em um objeto Tarefa, msma lógica do Post*/
     {
@@ -78,19 +86,20 @@ public class TarefaController : ControllerBase //ControllerBase é uma classe ab
         }
 
         //avisa ao EF que o objeto 'tarefa' está em estado "Modificado", para que o EF saiba que deve gerar um comando UPDATE
-        _context.Entry(tarefa).State = EntityState.Modified; /* _context pegue o objeto tarefa */
+        _context.Entry(tarefa).State = EntityState.Modified; /*_context sessao com o bd .Entry(tarefa) pega o rastro desse objeto dentro do EF
+        .State = EntityState.Modified diz ao EF que o objeto ja existe no bd mas foi modificado */
 
         try
         {
-            //tenta persistir as alterações no BD
+            // await faz o método esperar a opção terminar sem trava a thread, permitindo q o servidor atenda outras requisições
             //O savechanges async pega a nossa tarefa modificada e executa as transações
             await _context.SaveChangesAsync();
         }
-        catch (DbUpdateConcurrencyException)
+        catch (DbUpdateConcurrencyException) //dbupdateconcurrencyexception é do EF
         {
             /*tratamento de erro, se a task foi deletada por outra pessoa entre o momento que o cliente a carregou e o momento que ele
             tentou salvar a edição*/
-            if (!_context.Tarefas.Any(e => e.Id == id))
+            if (!_context.Tarefas.Any(e => e.Id == id)) //verifica se a tarefa ainda existe no banco Any Retorna true se hovuer algum registro com esse id
             {
                 //se a tarefa não existe mais, retorna 404 Not Found
                 return NotFound();
@@ -106,7 +115,8 @@ public class TarefaController : ControllerBase //ControllerBase é uma classe ab
     }
 
     //Endpoint p deletar uma tarefa existente
-    [HttpDelete("{id}")]
+    [HttpDelete("{id}")] //Diz que esse método responde a requisições delete, o {id} significa que a  URL vai precisar passar um identificador
+    //  significa que a url p este método é /api/tarefa/algum_id 
 
     public async Task<IActionResult> DeleteTarefa(int id)
     {
