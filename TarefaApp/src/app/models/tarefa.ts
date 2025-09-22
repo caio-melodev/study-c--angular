@@ -1,5 +1,6 @@
 // define a forma que 'Tarefa' deve ter
 // 'export' permite que essa interface seja importada e usada em outros arquivos.
+//definição em typscript
 export interface Tarefa {
   id: number;
   titulo: string;
